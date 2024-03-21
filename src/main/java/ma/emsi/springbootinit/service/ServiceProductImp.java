@@ -15,5 +15,46 @@ public class ServiceProductImp implements ServiceProduct{
         return productRepo.findAll();
     }
 
-    //Le reste à compléter
+    @Override
+    public Product getProduct(Long id) {
+        //Verifier si le produit existe
+        return productRepo.findById(id).get();
+    }
+
+    @Override
+    public Product getProduct(String ref) {
+        return productRepo.findByRef(ref);
+    }
+
+    @Override
+    public Product getProductName(String name) {
+        return productRepo.findByName(name);
+    }
+
+    @Override
+    public Product addProduct(Product product) {
+        return productRepo.save(product);
+    }
+
+    @Override
+    public Product editProductPrice(Long id, Float price) {
+        Product prctToBeEdited
+                = productRepo.findById(id).get();
+        if(prctToBeEdited!=null) {
+            prctToBeEdited.setPrice(price);
+            return productRepo.save(prctToBeEdited);
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        productRepo.deleteById(id);
+    }
+
+    @Override
+    public Product deleteProduct(String name) {
+        return productRepo.deleteByName(name);
+    }
+
 }

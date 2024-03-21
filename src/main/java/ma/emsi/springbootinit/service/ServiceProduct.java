@@ -6,6 +6,13 @@ import java.util.List;
 
 public interface ServiceProduct {
     List<Product> getProducts();
+    Product getProduct(Long id);
+    Product getProduct(String ref);
+    Product getProductName(String name);
+    Product addProduct(Product product);
+    Product editProductPrice(Long id, Float price);
+    void deleteProduct(Long id);
+    Product deleteProduct(String name);
 
-    //A compléter avec le reste des opérations!
+
 }

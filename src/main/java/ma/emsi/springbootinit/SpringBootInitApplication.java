@@ -23,7 +23,8 @@ public class SpringBootInitApplication implements CommandLineRunner {
 		for (int i=1; i<=10; i++){
 			productRepo.save(
 					new Product(null, "PC "+i,
-					"PC"+i+"-Ref", 1234,new Date()));
+					"PC"+i+"-Ref", 1234,new Date()
+							,(float)Math.random()*1000));
 
 		}
 		//Nombre d'enregistrement dans "Product"
