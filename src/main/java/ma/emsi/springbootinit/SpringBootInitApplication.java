@@ -10,23 +10,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Date;
 
 @SpringBootApplication
-public class SpringBootInitApplication implements CommandLineRunner {
+public class SpringBootInitApplication {
 	@Autowired
 	ProductRepo productRepo;
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootInitApplication.class, args);
 	}
 
-	@Override
 	public void run(String... args) throws Exception {
 		//Insertion des produits
-		for (int i=1; i<=10; i++){
+		/*for (int i=1; i<=10; i++){
 			productRepo.save(
 					new Product(null, "PC "+i,
 					"PC"+i+"-Ref", 1234,new Date()
 							,(float)Math.random()*1000));
 
-		}
+		}*/
 		//Nombre d'enregistrement dans "Product"
 		System.out.println(" ------ Nombre total des produits: "
 				+productRepo.count()+"------");
@@ -43,11 +42,10 @@ public class SpringBootInitApplication implements CommandLineRunner {
 			System.out.println("Product not found");
 
 		//Récupérer un objet à travers son ID
-		System.out.println("Le produit 5: "
-				+ productRepo.findById(5L).get() );
+		//System.out.println("Le produit 5: " + productRepo.findById(5L).get() );
 
 		//Supprimer l'objet 5
-		productRepo.deleteById(5L);
+		//productRepo.deleteById(5L);
 
 		//Validation de la suppression (Affichage)
 		products = productRepo.findAll();
@@ -56,6 +54,6 @@ public class SpringBootInitApplication implements CommandLineRunner {
 		}
 
 		//Recherche par nom
-		System.out.println(productRepo.findByName("PC 9"));
+		//System.out.println(productRepo.findByName("PC 9"));
 	}
 }

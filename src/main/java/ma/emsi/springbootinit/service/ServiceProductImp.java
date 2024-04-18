@@ -3,6 +3,8 @@ package ma.emsi.springbootinit.service;
 import ma.emsi.springbootinit.entities.Product;
 import ma.emsi.springbootinit.repositories.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +13,9 @@ public class ServiceProductImp implements ServiceProduct{
     @Autowired
     ProductRepo productRepo;
     @Override
-    public List<Product> getProducts() {
-        return productRepo.findAll();
+    public Page<Product> getProducts(int page) {
+        return productRepo
+                .findAll(PageRequest.of(page,10));
     }
 
     @Override

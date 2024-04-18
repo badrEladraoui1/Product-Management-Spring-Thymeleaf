@@ -3,6 +3,7 @@ package ma.emsi.springbootinit.web;
 import ma.emsi.springbootinit.entities.Product;
 import ma.emsi.springbootinit.service.ServiceProduct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    List<Product> getProducts(){
-        return serviceProduct.getProducts();
+    Page<Product> getProducts(){
+        return serviceProduct.getProducts(1);
     }
 
     //@HTTPTypeRequest + Path

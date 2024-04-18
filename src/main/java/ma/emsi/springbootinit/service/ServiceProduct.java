@@ -1,11 +1,12 @@
 package ma.emsi.springbootinit.service;
 
 import ma.emsi.springbootinit.entities.Product;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface ServiceProduct {
-    List<Product> getProducts();
+    Page<Product> getProducts(int pg);
     Product getProduct(Long id);
     Product getProduct(String ref);
     Product getProductName(String name);
