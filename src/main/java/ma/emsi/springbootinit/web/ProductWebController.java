@@ -45,7 +45,8 @@ public class ProductWebController {
     }
 
     @PostMapping("/add")
-    String addProduct(@RequestBody Product product){
+    // @ModelAttribute to bind the form data to the Product object
+    String addProduct(@ModelAttribute Product product){
         serviceProduct.addProduct(product);
         return "redirect:/index";
     }

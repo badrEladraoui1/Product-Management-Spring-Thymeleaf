@@ -2,6 +2,7 @@ package ma.emsi.springbootinit.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -14,7 +15,7 @@ public class Product {
     private String name;
     private String ref;
     private Integer code;
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date prodDate;
     private Float price;
 }

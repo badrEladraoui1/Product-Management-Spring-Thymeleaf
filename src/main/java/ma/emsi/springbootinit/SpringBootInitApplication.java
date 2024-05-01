@@ -19,13 +19,13 @@ public class SpringBootInitApplication {
 
 	public void run(String... args) throws Exception {
 		//Insertion des produits
-		/*for (int i=1; i<=10; i++){
-			productRepo.save(
-					new Product(null, "PC "+i,
-					"PC"+i+"-Ref", 1234,new Date()
-							,(float)Math.random()*1000));
-
-		}*/
+//		for (int i=22; i<=44; i++){
+//			productRepo.save(
+//					new Product(null, "PC "+i,
+//					"PC"+i+"-Ref", 1234,new Date()
+//							,(float)Math.random()*1000));
+//
+//		}
 		//Nombre d'enregistrement dans "Product"
 		System.out.println(" ------ Nombre total des produits: "
 				+productRepo.count()+"------");
