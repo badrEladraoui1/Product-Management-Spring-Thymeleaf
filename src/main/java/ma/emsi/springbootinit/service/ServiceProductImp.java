@@ -60,4 +60,20 @@ public class ServiceProductImp implements ServiceProduct{
         return productRepo.deleteByName(name);
     }
 
+    @Override
+    public Product getProductById(Long id) {
+        return productRepo.findById(id).get();
+    }
+
+    @Override
+    public void updateProduct(Product product) {
+        productRepo.save(product);
+    }
+
+    @Override
+    public void saveProduct(Product existingProduct) {
+        productRepo.save(existingProduct);
+    }
+
+
 }

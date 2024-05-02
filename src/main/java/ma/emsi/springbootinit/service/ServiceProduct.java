@@ -14,6 +14,7 @@ public interface ServiceProduct {
     Product editProductPrice(Long id, Float price);
     void deleteProduct(Long id);
     Product deleteProduct(String name);
-
-
+    Product getProductById(Long id);
+    void updateProduct(Product product);
+    void saveProduct(Product existingProduct);
 }
