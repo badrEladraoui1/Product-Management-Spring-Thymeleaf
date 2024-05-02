@@ -75,5 +75,8 @@ public class ServiceProductImp implements ServiceProduct{
         productRepo.save(existingProduct);
     }
 
-
+    @Override
+    public List<Product> findByNameContaining(String term) {
+        return productRepo.findByNameContaining(term);
+    }
 }

@@ -35,7 +35,10 @@
                       <a class="nav-link" href="#"
                          data-bs-toggle="modal" data-bs-target="#addNewProduct">Add new product</a>
                   </li>
-
+                  <form th:action="@{/search}" method="get">
+                      <input type="text" name="term" placeholder="Search for product">
+                      <button type="submit">Search</button>
+                  </form>
               </ul>
           </div>
       </div>

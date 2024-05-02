@@ -17,4 +17,5 @@ public interface ServiceProduct {
     Product getProductById(Long id);
     void updateProduct(Product product);
     void saveProduct(Product existingProduct);
+    List<Product> findByNameContaining(String term);
 }

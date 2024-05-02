@@ -85,4 +85,12 @@ public class ProductWebController {
         return "redirect:/index";
     }
 
+    @GetMapping("/search")
+    public String search(@RequestParam("term") String term, Model model) {
+        List<Product> products = serviceProduct.findByNameContaining(term);
+        model.addAttribute("products", products);
+        model.addAttribute("title", "searched products");
+        return "search_results";  // return the view that displays the search results
+    }
+
 }
