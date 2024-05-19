@@ -67,8 +67,6 @@
 			<artifactId>jquery</artifactId>
 			<version>3.7.1</version>
 		</dependency>
-
-
 		<!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -86,7 +84,13 @@
             <artifactId>jakarta.validation-api</artifactId>
             <version>3.0.2</version>
         </dependency>
-    </dependencies>
+		<!-- https://mvnrepository.com/artifact/org.webjars.npm/sweetalert2 -->
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>sweetalert2</artifactId>
+			<version>11.10.7</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

@@ -79,4 +79,10 @@ public class ServiceProductImp implements ServiceProduct{
     public List<Product> findByNameContaining(String term) {
         return productRepo.findByNameContaining(term);
     }
+    @Override
+    public int getLastPage() {
+        long count = productRepo.count();
+        int productsPerPage = 10;
+        return (int) Math.ceil((double) count / productsPerPage) -1;
+    }
 }

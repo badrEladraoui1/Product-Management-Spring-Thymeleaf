@@ -7,7 +7,10 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title th:text="${title}"></title>
+    <script src="webjars/sweetalert2/11.10.7/dist/sweetalert2.all.min.js"></script>
+    <script src="webjars/sweetalert2/11.10.7/dist/sweetalert2.min.css"></script>
+
+    <title th:text="#{titlep}"></title>
 </head>
 <body>
 <div class="container" layout:fragment="content">
@@ -20,7 +23,7 @@
             </div>
             <div class="col-6">
                 <div class="alert alert-info" role="alert">
-                    <h2>Nombre total des produits:
+                    <h2 th:text="#{Nombre_total_des_produits:}">Total number of products:
                         <span th:text="${count}"></span></h2>
                 </div>
             </div>
@@ -30,33 +33,28 @@
         <div class="col-12">
             <table class="table table-striped">
                 <thead>
-                <th>Name</th>
-                <th>Reference</th>
-                <th>Price</th>
-                <th>Edition</th>
-                <th>Delete</th>
+                <tr>
+                    <th th:text="#{Name}">Name</th>
+                    <th th:text="#{Reference}">Reference</th>
+                    <th th:text="#{Price}">Price</th>
+                    <th th:text="#{Modification}">Modification</th>
+                    <th th:text="#{Delete}">Delete</th>
+                </tr>
                 </thead>
                 <tbody>
-                <tr th:each="produit:${prdcts}">
+                <tr th:each="produit : ${prdcts}">
                     <td th:text="${produit.name}"></td>
                     <td th:text="${produit.ref}"></td>
                     <td th:text="${produit.price}"></td>
-<!--                    <td>-->
-<!--                        <a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modifyProduct"-->
-<!--                           th:href="@{/editProduct(id=${produit.id})}" data-id="${produit.id}">-->
-<!--                            <i class="bi bi-pencil"></i>-->
-<!--                        </a>-->
                     <td>
                         <a class="btn btn-warning"
                            th:href="@{/showEditForm/{id}(id=${produit.id})}">
                             <i class="bi bi-pencil"></i>
                         </a>
                     </td>
-                    </td>
                     <td>
-                        <a class="btn btn-danger"
-                           th:href="@{delete(id=${produit.id})}"
-                           onclick="return confirm('Do you want to delete this product?')">
+                        <a class="btn btn-danger delete-button"
+                           th:href="@{delete(id=${produit.id})}">
                             <i class="bi bi-trash"></i>
                         </a>
                     </td>
@@ -65,69 +63,71 @@
             </table>
             <nav aria-label="pagination">
                 <ul class="pagination pagination-md">
-                    <li th:each="p:${listPages}"
-                        th:class=
-                                "${currentPage == p ?'page-item active':'page-item' }">
-                        <a class="page-link" th:text="${p+1}"
+                    <li th:each="p : ${listPages}"
+                        th:class="${currentPage == p ? 'page-item active' : 'page-item'}">
+                        <a class="page-link" th:text="${p + 1}"
                            th:href="@{index(page=${p})}"></a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
-<!--    &lt;!&ndash;Modal&ndash;&gt;-->
-<!--    <div class="modal" tabindex="-1" id="modifyProduct" aria-labelledby="modifyProduct" aria-hidden="true">-->
-<!--        <div class="modal-dialog">-->
-<!--            <div class="modal-content">-->
-<!--                <div class="modal-header">-->
-<!--                    <h5 class="modal-title">Edit Product</h5>-->
-<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                </div>-->
-<!--                <div class="modal-body">-->
-<!--                    <form method="post" th:action="@{/updateProduct}" th:object="${product}">-->
-<!--                        <div class="mb-3 row">-->
-<!--                            <label for="ref" class="col-sm-2 col-form-label">Product Name</label>-->
-<!--                            <div class="col-sm-10">-->
-<!--                                <input type="text" class="form-control" id="name" th:field="*{name}">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="mb-3 row">-->
-<!--                            <label for="ref" class="col-sm-2 col-form-label">Product Ref</label>-->
-<!--                            <div class="col-sm-10">-->
-<!--                                <input type="text" class="form-control" id="ref" th:field="*{ref}">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="mb-3 row">-->
-<!--                            <label for="code" class="col-sm-2 col-form-label">Product Code</label>-->
-<!--                            <div class="col-sm-10">-->
-<!--                                <input type="number" class="form-control" id="code" th:field="*{code}">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="mb-3 row">-->
-<!--                            <label for="date" class="col-sm-2 col-form-label">Production Date</label>-->
-<!--                            <div class="col-sm-10">-->
-<!--                                <input type="date" class="form-control" id="date" th:field="*{prodDate}">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="mb-3 row">-->
-<!--                            <label for="price" class="col-sm-2 col-form-label">Product Price</label>-->
-<!--                            <div class="col-sm-10">-->
-<!--                                <input type="number" class="form-control" id="price" th:field="*{price}">-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="modal-footer">-->
-<!--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                            <button type="submit" class="btn btn-primary">Save changes</button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div th:if="${deleted}">
+        <p id="deleted" th:text="${deleted}"></p>
+    </div>
+    <div th:if="${error}">
+        <p id="error" th:text="${error}"></p>
+    </div>
 
+    <script th:inline="javascript">
+        document.querySelectorAll(".delete-button").forEach(function(button) {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();  // prevent the default action (following the link)
+                var href = this.getAttribute('href');  // get the href attribute of the clicked link
+
+                Swal.fire({
+                    title: /*[[#{Are_you_sure?}]]*/ "Are you sure?",
+                    text: /*[[#{You_won_t_be_able_to_revert_this!}]]*/ "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: /*[[#{Yes_delete_it!}]]*/ "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: /*[[#{Deleted!}]]*/ "Deleted!",
+                            text: /*[[#{Your_file_has_been_deleted.}]]*/ "Your file has been deleted.",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href = href;  // redirect to the delete URL
+                        });
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var deletedMessage = /*[[${deleted}]]*/ false;
+            var errorMessage = /*[[${error}]]*/ false;
+
+            if (deletedMessage) {
+                Swal.fire({
+                    title: /*[[#{Success!}]]*/ "Success!",
+                    text: deletedMessage,
+                    icon: "success",
+                });
+            }
+
+            if (errorMessage) {
+                Swal.fire({
+                    title: /*[[#{Error!}]]*/ "Error!",
+                    text: errorMessage,
+                    icon: "error",
+                });
+            }
+        });
+    </script>
 </div>
-
-<script>
-</script>
 </body>
 </html>

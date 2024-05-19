@@ -18,4 +18,5 @@ public interface ServiceProduct {
     void updateProduct(Product product);
     void saveProduct(Product existingProduct);
     List<Product> findByNameContaining(String term);
+    int getLastPage();
 }

@@ -1,5 +1,6 @@
 package ma.emsi.springbootinit.web;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import ma.emsi.springbootinit.entities.Product;
 import ma.emsi.springbootinit.service.ServiceProduct;
@@ -7,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,24 +33,29 @@ public class ProductWebController {
         for (int i = 0; i < listPages.length; i++) listPages[i] = i;
 
         model.addAttribute("listPages", listPages);
-
-        // Add a new Product object to the model
         model.addAttribute("product", new Product());
 
         return "products"; //Nom de la page HTML (templates)
     }
 
     @GetMapping("/delete")
-    String deleteProductById(@RequestParam Long id) {
+    String deleteProductById(@RequestParam Long id , RedirectAttributes redirectAttributes) {
         System.out.println("PRDCT TO BE DELETE: " + id);
-        serviceProduct.deleteProduct(id);
-        return "redirect:/index";
+        try {
+            serviceProduct.deleteProduct(id);
+            redirectAttributes.addFlashAttribute("deleted" , "deleted product successfully");
+            return "redirect:/index";
+        }catch (Exception exception){
+            redirectAttributes.addFlashAttribute("error" , "Error while deleting product");
+            return "redirect:/index";
+        }
     }
 
     @PostMapping("/add")
         // @ModelAttribute to bind the form data to the Product object
-    String addProduct(@ModelAttribute Product product) {
+    String addProduct(@ModelAttribute Product product ,  RedirectAttributes redirectAttributes) {
         serviceProduct.addProduct(product);
+        redirectAttributes.addAttribute("page", serviceProduct.getLastPage());
         return "redirect:/index";
     }
 
@@ -57,8 +65,9 @@ public class ProductWebController {
         return "redirect:/index";
     }
 
+
     @GetMapping("/showEditForm/{id}")
-    public String editProduct(@PathVariable (value = "id") Long id, Model model) {
+    public String editProduct(@PathVariable(value = "id") Long id, Model model) {
         Product product = serviceProduct.getProductById(id);
         model.addAttribute("title", "modification de produits");
         model.addAttribute("product", product);
@@ -72,7 +81,7 @@ public class ProductWebController {
 //    }
 
     @PostMapping("/updateProduct")
-    public String updateProduct(@ModelAttribute Product product) {
+    public String updateProduct(@ModelAttribute Product product , BindingResult theBindingResult) {
         Product existingProduct = serviceProduct.getProductById(product.getId());
         if (existingProduct != null) {
             existingProduct.setName(product.getName());
@@ -83,10 +92,11 @@ public class ProductWebController {
             serviceProduct.saveProduct(existingProduct);
         }
         return "redirect:/index";
+
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam("term") String term, Model model) {
+    public String search(@RequestParam("term") String term, Model model , RedirectAttributes redirectAttributes) {
         List<Product> products = serviceProduct.findByNameContaining(term);
         model.addAttribute("products", products);
         model.addAttribute("title", "searched products");
